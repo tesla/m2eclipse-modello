@@ -1,0 +1,25 @@
+<catalog>
+  <catalogItems>
+    <catalogItem>
+      <categoryId>org.eclipse.m2e.discovery.category.lifecycles</categoryId>
+      <m2e-versions>1.0,1.1</m2e-versions>
+      <description>modello</description>
+      <groupId>lifecycles</groupId>
+      <id>org.eclipse.m2e.discovery.lifecyclemapping.modello</id>
+      <kind>lifecycles</kind>
+      <license>EPL</license>
+      <name>modello</name>
+      <provider>Sonatype, Inc.</provider>
+      <p2>
+        <repositoryUrl>https://repository.sonatype.org/content/repositories/forge-sites/m2e-extras/0.14.0/N/0.14.0.201109270543/</repositoryUrl>
+        <iuId>org.sonatype.m2e.modello.feature.feature.group</iuId>
+        <lifecycleMappingIU>
+          <iuId>org.sonatype.m2e.modello</iuId>
+        </lifecycleMappingIU>
+      </p2>
+      <overview>
+        <summary>modello</summary>
+      </overview>
+    </catalogItem>
+  </catalogItems>
+</catalog>  
