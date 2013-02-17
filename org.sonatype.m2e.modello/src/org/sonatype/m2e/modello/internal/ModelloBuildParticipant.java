@@ -11,6 +11,7 @@ package org.sonatype.m2e.modello.internal;
 import java.io.File;
 
 import org.apache.maven.plugin.MojoExecution;
+import org.apache.maven.project.MavenProject;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -40,7 +41,8 @@ public class ModelloBuildParticipant
     {
         super.clean( monitor );
 
-        File[] outputFolders = projectConfigurator.getOutputFolders( getSession(), getMojoExecution() );
+        MavenProject mavenProject = getMavenProjectFacade().getMavenProject( monitor );
+        File[] outputFolders = projectConfigurator.getOutputFolders( mavenProject, getMojoExecution(), monitor );
         for ( File outputFolder : outputFolders )
         {
             log.debug( "Deleting directory {}", outputFolder.getAbsolutePath() );

@@ -22,7 +22,7 @@
   -->
   <groupId>org.sonatype.m2e.extras</groupId>  
   <artifactId>org.sonatype.m2e.modello.parent</artifactId>
-  <version>0.15.0-SNAPSHOT</version>
+  <version>0.16.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>M2E Modello Connector</name>
 
@@ -34,7 +34,7 @@
   <repositories>
     <repository>
       <id>m2e-tests</id>
-      <url>https://repository.sonatype.org/content/sites/forge-sites/m2e/1.1.0/N/1.1.0.20120622-0806/</url>
+      <url>http://repository.tesla.io:8081/nexus/content/sites/m2e.extras/m2e/1.4.0/N/LATEST/</url>
       <layout>p2</layout>
     </repository>      
   </repositories>  

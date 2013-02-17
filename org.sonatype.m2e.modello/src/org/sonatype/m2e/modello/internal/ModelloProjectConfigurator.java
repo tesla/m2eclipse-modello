@@ -10,16 +10,17 @@ package org.sonatype.m2e.modello.internal;
 
 import java.io.File;
 
-import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecution;
+import org.apache.maven.project.MavenProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.m2e.core.lifecyclemapping.model.IPluginExecutionMetadata;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.configurator.AbstractBuildParticipant;
-import org.eclipse.m2e.jdt.AbstractJavaProjectConfigurator;
+import org.eclipse.m2e.jdt.AbstractSourcesGenerationProjectConfigurator;
 
 public class ModelloProjectConfigurator
-    extends AbstractJavaProjectConfigurator
+    extends AbstractSourcesGenerationProjectConfigurator
 {
     @Override
     public AbstractBuildParticipant getBuildParticipant( IMavenProjectFacade projectFacade, MojoExecution execution,
@@ -28,9 +29,10 @@ public class ModelloProjectConfigurator
         return new ModelloBuildParticipant( execution, this );
     }
 
-    File[] getOutputFolders( MavenSession mavenSession, MojoExecution mojoExecution )
+    File[] getOutputFolders( MavenProject project, MojoExecution mojoExecution, IProgressMonitor monitor )
         throws CoreException
     {
-        return new File[] { getParameterValue( getOutputFolderParameterName(), File.class, mavenSession, mojoExecution ) };
+        return new File[] { getParameterValue( project, getOutputFolderParameterName(), File.class, mojoExecution,
+                                               monitor ) };
     }
 }
