@@ -33,7 +33,7 @@
       </pluginExecutionFilter>
       <action>
         <configurator>
-          <id>org.sonatype.m2e.modello.modelloConfigurator</id>
+          <id>org.sonatype.m2e.modello.modelloUpgradeConfigurator</id>
         </configurator>
       </action>
     </pluginExecution>

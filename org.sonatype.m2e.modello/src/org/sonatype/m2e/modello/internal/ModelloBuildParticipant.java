@@ -25,9 +25,9 @@ import org.slf4j.LoggerFactory;
 public class ModelloBuildParticipant
     extends MojoExecutionBuildParticipant
 {
-    private static final Logger log = LoggerFactory.getLogger( ModelloBuildParticipant.class );
+    protected final Logger log = LoggerFactory.getLogger( getClass() );
 
-    private final ModelloProjectConfigurator projectConfigurator;
+    protected final ModelloProjectConfigurator projectConfigurator;
 
     public ModelloBuildParticipant( MojoExecution execution, ModelloProjectConfigurator projectConfigurator )
     {

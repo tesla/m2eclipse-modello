@@ -35,4 +35,12 @@ public class ModelloProjectConfigurator
         return new File[] { getParameterValue( project, getOutputFolderParameterName(), File.class, mojoExecution,
                                                monitor ) };
     }
+
+    @Override
+    protected <T> T getParameterValue( MavenProject project, String parameter, Class<T> asType,
+                                       MojoExecution mojoExecution, IProgressMonitor monitor )
+        throws CoreException
+    {
+        return super.getParameterValue( project, parameter, asType, mojoExecution, monitor );
+    }
 }
