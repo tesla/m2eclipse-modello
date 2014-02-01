@@ -61,7 +61,8 @@ public class ModelloGenerationTest
         project.build( IncrementalProjectBuilder.CLEAN_BUILD, monitor );
         waitForJobsToComplete();
         assertNoErrors( project );
-        assertFalse( project.getFolder( "target/generated-sources/modello" ).exists() );
+        assertTrue( project.getFolder( "target/generated-sources/modello" ).exists() );
+        assertEquals( 0, project.getFolder( "target/generated-sources/modello" ).members().length );
     }
 
     public void test_NoLifecycleMapping()

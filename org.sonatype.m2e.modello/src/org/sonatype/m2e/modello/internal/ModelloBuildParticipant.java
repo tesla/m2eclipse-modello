@@ -14,6 +14,7 @@ import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -42,21 +43,27 @@ public class ModelloBuildParticipant
         super.clean( monitor );
 
         MavenProject mavenProject = getMavenProjectFacade().getMavenProject( monitor );
-        File[] outputFolders = projectConfigurator.getOutputFolders( mavenProject, getMojoExecution(), monitor );
-        for ( File outputFolder : outputFolders )
+        IProject project = getMavenProjectFacade().getProject();
+        File[] outputDirs = projectConfigurator.getOutputFolders( mavenProject, getMojoExecution(), monitor );
+        for ( File outputDir : outputDirs )
         {
-            log.debug( "Deleting directory {}", outputFolder.getAbsolutePath() );
-            if ( !outputFolder.exists() )
-            {
-                log.debug( "Directory {} does not exist", outputFolder.getAbsolutePath() );
-                continue;
-            }
+            log.debug( "Deleting directory members {}", outputDir.getAbsolutePath() );
+            IFolder outputFolder = project.getFolder( getProjectRelativePath( project, outputDir ) );
 
-            IProject project = getMavenProjectFacade().getProject();
-            IFolder iOutputFolder = project.getFolder( getProjectRelativePath( project, outputFolder ) );
-            if ( iOutputFolder != null )
+            // JDT JavaBuilder considers added/removed optional source folders as classpath changes
+            // keep folders (but not their content) to prevent build escalation
+
+            if ( outputFolder.exists() )
             {
-                iOutputFolder.delete( true /* force */, monitor );
+                outputFolder.refreshLocal( IResource.DEPTH_ONE, monitor );
+                for ( IResource member : outputFolder.members() )
+                {
+                    member.delete( true /* force */, monitor );
+                }
+            }
+            else
+            {
+                log.debug( "Directory {} does not exist", outputDir.getAbsolutePath() );
             }
         }
     }
