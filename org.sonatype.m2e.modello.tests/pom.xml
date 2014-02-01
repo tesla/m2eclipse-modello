@@ -27,11 +27,9 @@
     <profile>
       <id>osx</id>
       <activation>
-        <property>
-          <!-- as of java7, java.vendor.url is oracle now and can't be used to detect osx any more -->
-          <name>os.name</name>
-          <value>Mac OS X</value>
-        </property>
+        <os>
+          <family>mac</family>
+        </os>
       </activation>
       <build>
         <pluginManagement>
