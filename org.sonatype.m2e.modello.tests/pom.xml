@@ -19,38 +19,4 @@
   <artifactId>org.sonatype.m2e.modello.tests</artifactId>
   <packaging>eclipse-test-plugin</packaging>
 
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-  </build>
-
-  <profiles>
-    <profile>
-      <id>osx</id>
-      <activation>
-        <os>
-          <family>mac</family>
-        </os>
-      </activation>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.eclipse.tycho</groupId>
-              <artifactId>tycho-surefire-plugin</artifactId>
-              <version>${tychoVersion}</version>
-              <configuration>
-                <dependencies>
-                  <dependency>
-                    <artifactId>org.eclipse.jdt.launching.macosx</artifactId>
-                    <version>3.2.100</version>
-                    <type>eclipse-plugin</type>
-                  </dependency>
-                </dependencies>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-  </profiles>
 </project>
