@@ -9,7 +9,7 @@
     <version>0.16.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>com.ifedorenko.m2e.sourcelookup.repository</artifactId>
+  <artifactId>org.sonatype.m2e.modello.repository</artifactId>
   <packaging>eclipse-repository</packaging>
 
 </project>
