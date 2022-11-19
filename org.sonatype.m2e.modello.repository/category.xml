@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="org.sonatype.m2e.modello.feature_0.0.0.qualifier.jar" id="org.sonatype.m2e.modello.feature" version="0.0.0">
-      <category name="org.eclipse.m2e.extensions"/>
+   <feature url="org.sonatype.m2e.modello.feature_0.0.0.jar" id="org.sonatype.m2e.modello.feature" version="0.0.0">
+      <category name="org.eclipse.m2e.modello"/>
    </feature>
-   <category-def name="org.eclipse.m2e.extensions" label="m2e extensions"/>
+   <feature url="org.sonatype.m2e.modello.feature.source_0.0.0.jar" id="org.sonatype.m2e.modello.feature.source" version="0.0.0">
+      <category name="org.eclipse.m2e.modello.sources"/>
+   </feature>
+   <category-def name="org.eclipse.m2e.modello" label="M2E Modello"/>
+   <category-def name="org.eclipse.m2e.modello.sources" label="M2E Modello Sources"/>
 </site>

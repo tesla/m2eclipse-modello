@@ -6,35 +6,165 @@
   which accompanies this distribution, and is available at
   http://www.eclipse.org/legal/epl-v10.html
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>io.takari.tycho</groupId>
-    <artifactId>tycho-support</artifactId>
-    <version>0.15.0</version>
-  </parent>
-  
-  <!--
+	<!--
   <groupId>org.sonatype.m2e.modello</groupId>  
   Use exising groupId for now until we figure out how to migrate people. If it matters.
   -->
-  <groupId>org.sonatype.m2e.extras</groupId>
-  <artifactId>org.sonatype.m2e.modello.parent</artifactId>
-  <version>0.16.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>M2E Modello Connector</name>
+	<groupId>org.sonatype.m2e.extras</groupId>
+	<artifactId>org.sonatype.m2e.modello.parent</artifactId>
+	<version>0.17.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>M2E Modello Connector</name>
 
-  <properties>
-    <repositoryPathId>m2eclipse-modello</repositoryPathId>
-  </properties>
+	<properties>
+		<repositoryPathId>m2eclipse-modello</repositoryPathId>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<tycho.version>2.7.5</tycho.version>
+		<tycho.extras.version>${tycho.version}</tycho.extras.version>
+		<tycho.test.platformArgs></tycho.test.platformArgs>
+		<tycho.test.jvmArgs>-Xmx512m</tycho.test.jvmArgs>
+		<tycho.scmUrl>scm:git:https://github.com/tesla/m2eclipse-modello.git</tycho.scmUrl>
+	</properties>
 
-  <modules>
-    <module>org.sonatype.m2e.modello</module>
-    <module>org.sonatype.m2e.modello.feature</module>
-    <module>org.sonatype.m2e.modello.tests</module>
-    <module>org.sonatype.m2e.modello.repository</module>
-  </modules>
+	<licenses>
+		<license>
+			<name>Eclipse Public License - v 2.0</name>
+			<url>https://www.eclipse.org/legal/epl-v10.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
+	<repositories>
+		<repository>
+			<id>eclipse</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/2022-09</url>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>org.sonatype.m2e.modello</module>
+		<module>org.sonatype.m2e.modello.feature</module>
+		<module>org.sonatype.m2e.modello.tests</module>
+		<module>org.sonatype.m2e.modello.repository</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>attach-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<sourceReferences>
+						<generate>true</generate>
+					</sourceReferences>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.tycho.extras</groupId>
+						<artifactId>tycho-sourceref-jgit</artifactId>
+						<version>${tycho.extras.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>source-feature</id>
+			<activation>
+				<file>
+					<exists>feature.xml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-source-plugin</artifactId>
+						<version>${tycho.version}</version>
+						<executions>
+							<execution>
+								<id>feature-source</id>
+								<phase>package</phase>
+								<goals>
+									<goal>feature-source</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-p2-plugin</artifactId>
+						<version>${tycho.version}</version>
+						<executions>
+							<execution>
+								<id>attach-p2-metadata</id>
+								<phase>package</phase>
+								<goals>
+									<goal>p2-metadata</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>macosx</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<tycho.test.platformArgs>-XstartOnFirstThread</tycho.test.platformArgs>
+			</properties>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.eclipse.tycho</groupId>
+							<artifactId>tycho-surefire-plugin</artifactId>
+							<version>${tycho.version}</version>
+							<configuration>
+								<dependencies>
+									<dependency>
+										<artifactId>org.eclipse.jdt</artifactId>
+										<version>0.0.0</version>
+										<type>eclipse-feature</type>
+									</dependency>
+								</dependencies>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
 </project>
