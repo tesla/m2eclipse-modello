@@ -1,6 +1,10 @@
-.project/
+.project
 .settings/
 target/
 bin/
-.project
 .classpath
+#Ignored files when updating remoterepo/
+_remote.repositories
+*.sha1
+m2-lastUpdated.properties
+.DS_Store

@@ -8,6 +8,11 @@
 
 package org.sonatype.m2e.modello.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -23,11 +28,13 @@ import org.eclipse.m2e.core.project.configurator.ILifecycleMapping;
 import org.eclipse.m2e.core.project.configurator.MojoExecutionKey;
 import org.eclipse.m2e.tests.common.AbstractLifecycleMappingTest;
 import org.eclipse.m2e.tests.common.ClasspathHelpers;
+import org.junit.Test;
 
 @SuppressWarnings( "restriction" )
 public class ModelloGenerationTest
     extends AbstractLifecycleMappingTest
 {
+	@Test
     public void test_p001_simple()
         throws Exception
     {
@@ -65,6 +72,7 @@ public class ModelloGenerationTest
         assertEquals( 0, project.getFolder( "target/generated-sources/modello" ).members().length );
     }
 
+	@Test
     public void test_NoLifecycleMapping()
         throws Exception
     {
@@ -92,6 +100,7 @@ public class ModelloGenerationTest
         assertTrue( project1.getFile( "target/generated-sources/modello/generated/test/GeneratedTest.java" ).isAccessible() );
     }
 
+	@Test
     public void test_IncompleteConfiguration()
         throws Exception
     {
@@ -108,9 +117,9 @@ public class ModelloGenerationTest
         assertEquals( 1, notCoveredMojoExecutions.size() );
         MojoExecutionKey notCoveredMojoExecutionKey = notCoveredMojoExecutions.get( 0 );
         assertNotNull( notCoveredMojoExecutionKey );
-        assertEquals( "org.sonatype.plugins", notCoveredMojoExecutionKey.getGroupId() );
-        assertEquals( "modello-plugin-upgrade", notCoveredMojoExecutionKey.getArtifactId() );
-        assertEquals( "0.0.1", notCoveredMojoExecutionKey.getVersion() );
-        assertEquals( "upgrade", notCoveredMojoExecutionKey.getGoal() );
+        assertEquals( "org.sonatype.plugins", notCoveredMojoExecutionKey.groupId() );
+        assertEquals( "modello-plugin-upgrade", notCoveredMojoExecutionKey.artifactId() );
+        assertEquals( "0.0.1", notCoveredMojoExecutionKey.version() );
+        assertEquals( "upgrade", notCoveredMojoExecutionKey.goal() );
     }
 }
