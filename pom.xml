@@ -32,7 +32,7 @@
 
 	<licenses>
 		<license>
-			<name>Eclipse Public License - v 2.0</name>
+			<name>Eclipse Public License - v 1.0</name>
 			<url>https://www.eclipse.org/legal/epl-v10.html</url>
 			<distribution>repo</distribution>
 		</license>
